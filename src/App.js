@@ -1,18 +1,49 @@
-import React from 'react';
+import React, { Component } from "react";
+import "./App.css";
+import { Link, Route, Router, Routes } from "react-router-dom";
 
-function App() {
-  return (
-    <div style={{ textAlign: 'center' }}>
-      <header>
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import AddTutorial from "./components/add-tutorial.component";
+import Tutorial from "./components/tutorial.component";
+import TutorialsList from "./components/tutorials-list.component";
+
+class App extends Component {
+  render() {
+    return (
+      <div>
+        <Router>
+          <nav className="navbar navbar-expand navbar-dark bg-dark">
+            <Link to={"/tutorials"} className="navbar-brand">
+              bezKoder
+            </Link>
+            <div className="navbar-nav mr-auto">
+              <li className="nav-item">
+                <Link to={"/tutorials"} className="nav-link">
+                  Tutorials
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to={"/add"} className="nav-link">
+                  Add
+                </Link>
+              </li>
+            </div>
+          </nav>
+
+          <div className="container mt-3">
+            <Routes>
+              <Route
+                exact
+                path={["/", "/tutorials"]}
+                component={TutorialsList}
+              />
+              <Route exact path="/add" component={AddTutorial} />
+              <Route path="/tutorials/:id" component={Tutorial} />
+            </Routes>
+          </div>
+        </Router>
+      </div>
+    );
+  }
 }
 
 export default App;
